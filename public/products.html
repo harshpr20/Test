@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Our Products - Malwa Krunch</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h1 { text-align: center; }
+    .product-grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 16px;
+      width: 200px;
+      box-shadow: 2px 2px 10px #eee;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Our Namkeen Range</h1>
+  <div class="product-grid">
+    <div class="card">
+      <img src="https://via.placeholder.com/200x150.png?text=Ratlami+Sev" alt="Ratlami Sev">
+      <h3>Ratlami Sev</h3>
+      <p>₹40 per 200g</p>
+       <button onclick="addToCart('Ratlami Sev', 40)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/200x150.png?text=Bhujia" alt="Bhujia">
+      <h3>Bhujia</h3>
+      <p>₹35 per 200g</p>
+      <button onclick="addToCart('Bhujia', 35)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/200x150.png?text=Masala+Mix" alt="Masala Mix">
+      <h3>Masala Mix</h3>
+      <p>₹50 per 250g</p>
+      <button onclick="addToCart('Masala Mix', 50)">Add to Cart</button>
+    </div>
+  </div>
+</body>
+<script>
+  function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if item already exists
+    const index = cart.findIndex(item => item.name === name);
+
+    if (index !== -1) {
+      // Item exists → increase quantity
+      cart[index].quantity += 1;
+    } else {
+      // Item doesn't exist → add new
+      cart.push({ name, price, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(name + ' added to cart!');
+  }
+</script>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .item { margin-bottom: 10px; }
+    .total { font-weight: bold; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Your Cart</h1>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <br>
+  <a href="/checkout.html">Proceed to Checkout</a>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+let total = 0;
+const cartDiv = document.getElementById('cartItems');
+cart.forEach(item => {
+  const div = document.createElement('div');
+  div.className = 'item';
+  div.innerText = `${item.name} x${item.quantity} - ₹${item.price * item.quantity}`;
+  cartDiv.appendChild(div);
+  total += item.price * item.quantity;
+});
+
+    document.getElementById('total').innerText = `Total: ₹${total}`;
+  </script>
+</body>
+</html>

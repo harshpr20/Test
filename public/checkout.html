@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout - Malwa Krunch</title>
+</head>
+<body>
+  <h1>Checkout</h1>
+  <p>Total Amount: ₹<span id="payAmount">0</span></p>
+  <button id="rzp-button">Pay Now</button>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    // 1. Load cart from localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // 2. Calculate total price
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+    });
+
+    // 3. Show total in page
+    document.getElementById("payAmount").innerText = total;
+
+    // 4. Razorpay config
+    document.getElementById('rzp-button').onclick = function () {
+      const options = {
+        "key": "rzp_test_bQESytUsKQklrL", // Replace with your test key
+        "amount": total * 100, // Razorpay takes amount in paise
+        "currency": "INR",
+        "name": "Malwa Krunch",
+        "description": "Namkeen Order",
+        "handler": function (response) {
+          alert("✅ Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
+          localStorage.removeItem('cart');
+          window.location.href = "/";
+        },
+        "theme": {
+          "color": "#3399cc"
+        }
+      };
+      const rzp = new Razorpay(options);
+      rzp.open();
+    };
+  </script>
+</body>
+</html>

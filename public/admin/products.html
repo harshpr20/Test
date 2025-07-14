@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Products</title>
+</head>
+<body>
+  <h1>Manage Products</h1>
+
+  <h3>Add New Product</h3>
+  <form action="/admin/products" method="POST">
+    <label>Product Name:</label><br>
+    <input type="text" name="name" required><br><br>
+    <label>Price (₹):</label><br>
+    <input type="number" name="price" required><br><br>
+    <button type="submit">Add Product</button>
+  </form>
+
+  <hr>
+
+  <h3>Current Product List</h3>
+  <div id="productList">Loading...</div>
+
+  <br><a href="/admin/dashboard">⬅ Back to Dashboard</a>
+
+  <script>
+    function loadProducts() {
+      fetch('/admin/products/list')
+        .then(res => res.json())
+        .then(products => {
+          const listDiv = document.getElementById('productList');
+          listDiv.innerHTML = '';
+
+          if (products.length === 0) {
+            listDiv.innerHTML = 'No products added yet.';
+          } else {
+            products.forEach((product, index) => {
+              const div = document.createElement('div');
+              div.innerHTML = `
+                ${product.name} - ₹${product.price} 
+                <button onclick="deleteProduct(${index})">❌ Delete</button> 
+                <button onclick="editProduct(${index}, '${product.name}', ${product.price})">✏️ Edit</button>
+              `;
+              listDiv.appendChild(div);
+            });
+          }
+        });
+    }
+
+    function deleteProduct(index) {
+      fetch('/admin/products/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ index })
+      }).then(() => loadProducts());
+    }
+
+    function editProduct(index, currentName, currentPrice) {
+      const newName = prompt('Enter new name:', currentName);
+      const newPrice = prompt('Enter new price:', currentPrice);
+
+      if (newName && newPrice) {
+        fetch('/admin/products/edit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ index, name: newName, price: parseFloat(newPrice) })
+        }).then(() => loadProducts());
+      }
+    }
+
+    loadProducts();
+  </script>
+</body>
+</html>
