@@ -1,10 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <title>Malwa Krunch</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snackroo</title>
+
+  <!-- Tailwind CDN with Dark Mode Support -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF7F50', // Bright theme color
+          }
+        }
+      }
+    }
+  </script>
+
+<script>
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('nav');
+    if (window.scrollY > 50) {
+      navbar.classList.add('py-2');
+      navbar.classList.remove('py-4');
+    } else {
+      navbar.classList.add('py-4');
+      navbar.classList.remove('py-2');
+    }
+  });
+</script>
+<button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
+  class="fixed bottom-5 right-5 bg-primary text-white px-3 py-2 rounded-full shadow-lg hover:opacity-80 transition">
+  ↑
+</button>
+
+
+  <!-- AOS Library CSS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Welcome to Malwa Krunch</h1>
-  <p>This is your homepage.</p>
+
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between px-6 py-4 bg-primary text-white dark:bg-gray-800 fixed top-4 left-4 right-4 mx-auto rounded-full shadow-md z-50 transition-all duration-300">
+  <div class="flex items-center space-x-4">
+    <h1 class="text-2xl font-bold cursor-pointer" onclick="scrollToSection('hero')">Snackroo</h1>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <button onclick="scrollToSection('products')">Products</button>
+    <button onclick="scrollToSection('heritage')">Heritage</button>
+    <button onclick="scrollToSection('cart')">Cart</button>
+        <!-- Dark mode button8 -->
+    <button onclick="toggleDarkMode()" class="bg-white text-gray-800 px-2 py-1 rounded">
+      🌓
+    </button>
+  </div>
+</nav>
+
+
+  <!-- Spacer -->
+  <div class="h-20"></div>
+
+  <!-- Sample Hero Section -->
+  <section id="hero" class="text-center py-20">
+    <h2 class="text-4xl font-bold">Welcome to Snackroo</h2>
+    <p class="mt-4 text-lg">Your authentic namkeen experience</p>
+  </section>
+
+  <section id="products" class="py-16 bg-gray-50 dark:bg-gray-800">
+  <h2 class="text-3xl font-bold text-center mb-10">Our Products</h2>
+
+  <div class="flex flex-wrap justify-center gap-8 px-4">
+    <!-- Product Card 1 -->
+    <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md transform hover:-translate-y-2 hover:scale-105 transition duration-300 w-60 text-center">
+      <img src="https://via.placeholder.com/150" alt="Product 1" class="mx-auto mb-4 rounded">
+      <h3 class="text-xl font-semibold mb-2">Ratlami Sev</h3>
+      <p class="text-gray-500 dark:text-gray-300 mb-2">Spicy & Authentic</p>
+      <span class="font-bold text-primary">₹60</span>
+    </div>
+
+    <!-- Product Card 2 -->
+    <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md transform hover:-translate-y-2 hover:scale-105 transition duration-300 w-60 text-center">
+      <img src="https://via.placeholder.com/150" alt="Product 2" class="mx-auto mb-4 rounded">
+      <h3 class="text-xl font-semibold mb-2">Aloo Bhujia</h3>
+      <p class="text-gray-500 dark:text-gray-300 mb-2">Crispy & Tangy</p>
+      <span class="font-bold text-primary">₹50</span>
+    </div>
+
+    <!-- Product Card 3 -->
+    <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md transform hover:-translate-y-2 hover:scale-105 transition duration-300 w-60 text-center">
+      <img src="https://via.placeholder.com/150" alt="Product 3" class="mx-auto mb-4 rounded">
+      <h3 class="text-xl font-semibold mb-2">Mixture</h3>
+      <p class="text-gray-500 dark:text-gray-300 mb-2">Flavorful Mix</p>
+      <span class="font-bold text-primary">₹55</span>
+    </div>
+  </div>
+</section>
+
+<section id="heritage" class="py-20 bg-white dark:bg-gray-900 text-center">
+  <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Our Heritage</h2>
+
+  <!-- Bowl Image -->
+  <div class="flex justify-center mb-8">
+    <img src="https://via.placeholder.com/200x150" alt="Bowl of Namkeen"
+      class="rounded-full shadow-lg transform transition duration-500"
+      data-aos="fade-up" data-aos-delay="200">
+  </div>
+
+  <!-- 4 Cards Sliding In -->
+  <div class="flex flex-wrap justify-center gap-6 px-4">
+    <!-- Left Side Cards -->
+    <div class="w-40 p-4 bg-gray-100 dark:bg-gray-700 rounded shadow-md" data-aos="fade-right" data-aos-delay="300">
+      <h3 class="font-semibold">Family Recipe</h3>
+      <p class="text-sm mt-2">Generations Old</p>
+    </div>
+    <div class="w-40 p-4 bg-gray-100 dark:bg-gray-700 rounded shadow-md" data-aos="fade-right" data-aos-delay="400">
+      <h3 class="font-semibold">Authentic Spices</h3>
+      <p class="text-sm mt-2">Handpicked & Pure</p>
+    </div>
+
+    <!-- Right Side Cards -->
+    <div class="w-40 p-4 bg-gray-100 dark:bg-gray-700 rounded shadow-md" data-aos="fade-left" data-aos-delay="400">
+      <h3 class="font-semibold">Rich Taste</h3>
+      <p class="text-sm mt-2">Unmatched Flavor</p>
+    </div>
+    <div class="w-40 p-4 bg-gray-100 dark:bg-gray-700 rounded shadow-md" data-aos="fade-left" data-aos-delay="300">
+      <h3 class="font-semibold">Traditional Touch</h3>
+      <p class="text-sm mt-2">With Modern Love</p>
+    </div>
+  </div>
+</section>
+
+<section id="cart" class="py-20 bg-gray-50 dark:bg-gray-800 text-center">
+  <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Your Cart</h2>
+
+  <div class="flex flex-col md:flex-row justify-center gap-8 px-4" data-aos="fade-up" data-aos-delay="200">
+    <!-- Example Cart Item -->
+    <div class="bg-white dark:bg-gray-700 p-4 rounded shadow-md w-72 text-left">
+      <h3 class="text-xl font-semibold">Ratlami Sev</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-300">Quantity: 2</p>
+      <p class="text-sm text-gray-500 dark:text-gray-300">Price: ₹120</p>
+      <button class="mt-2 px-3 py-1 bg-primary text-white rounded hover:opacity-80 transition">Remove</button>
+    </div>
+
+    <div class="bg-white dark:bg-gray-700 p-4 rounded shadow-md w-72 text-left">
+      <h3 class="text-xl font-semibold">Aloo Bhujia</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-300">Quantity: 1</p>
+      <p class="text-sm text-gray-500 dark:text-gray-300">Price: ₹60</p>
+      <button class="mt-2 px-3 py-1 bg-primary text-white rounded hover:opacity-80 transition">Remove</button>
+    </div>
+  </div>
+
+  <div class="mt-8" data-aos="fade-up" data-aos-delay="400">
+    <p class="text-xl font-bold">Total: ₹180</p>
+    <button class="mt-4 px-5 py-2 bg-primary text-white rounded hover:opacity-80 transition">
+      Proceed to Checkout
+    </button>
+  </div>
+</section>
+
+
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+<!-- AOS Library JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+<script>
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+  }
+
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+<footer class="bg-gray-200 dark:bg-gray-800 py-6 text-center text-gray-700 dark:text-gray-300">
+  <p>&copy; 2025 Snackroo. All rights reserved.</p>
+  <div class="flex justify-center gap-4 mt-2">
+    <a href="#" class="hover:underline">About</a>
+    <a href="#" class="hover:underline">Contact</a>
+    <a href="#" class="hover:underline">Terms</a>
+  </div>
+</footer>
+
 </body>
 </html>
